@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 function Post() {
 
@@ -17,24 +18,28 @@ function Post() {
             autor: autor.current.value,
             preco: preco.current.value,
             categoria_id: categoria_id.current.value,
-        }).then(() => document.location.reload(true)).catch((erro) => console.log(erro))
+        }).then(document.location.href='/get').catch((erro) => console.log(erro))
     }
 
-    return(
+    return (
         <div>
             <form onSubmit={efetuarcompra}>
                 <label>Código_ID:</label>
                 <input type="number"></input><br></br>
                 <label for="nome">Nome:</label>
-                <input type="text" placeholder='Nome' ref={nome}></input><br></br>
+                <input type="text" placeholder='Nome' ref={nome} required></input><br></br>
                 <label for="nome">Autor:</label>
-                <input type="text" placeholder='Nome do autor' ref={autor}></input><br></br>
+                <input type="text" placeholder='Nome do autor' ref={autor} required></input><br></br>
                 <label>Preço:</label>
-                <input type="number" placeholder='Preço' ref={preco}></input><br></br>
+                <input type="number" placeholder='Preço' ref={preco} required></input><br></br>
                 <label>Categoria_ID:</label>
-                <input type="number" placeholder='Categoria_ID' ref={categoria_id}></input><br></br>
+                <input type="number" placeholder='Categoria_ID' ref={categoria_id} required></input><br></br>
 
                 <button type='submit'>Cadastrar</button>
+                <button>
+                    <Link to="/get">Voltar</Link>
+                </button>
+
             </form>
         </div>
     )

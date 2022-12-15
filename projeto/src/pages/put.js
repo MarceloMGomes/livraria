@@ -1,40 +1,58 @@
 import React from 'react'
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import App from '../App';
+import { useParams } from 'react-router-dom';
 
-function Put(props) {
+function Put() {
 
-    const [posts, setPosts] = useState([])
+    const { id } = useParams()
 
-    useEffect((event) => {
-        event.preventDefault()
-        axios.get("https://livraria-api-omega.vercel.app/livros")
+    const [nome, setNome] = useState('')
+    const [autor, setAutor] = useState('')
+    const [preco, setPreco] = useState('')
+    const [categoria_id, setCategoria_Id] = useState('')
+
+    const data = {
+        nome: nome,
+        autor: autor,
+        preco: preco,
+        categoria_id: categoria_id,
+    }
+
+    useEffect(() => {
+        axios.get(`https://livraria-api-omega.vercel.app/livros/${id}`)
         .then((response) => {
-            setPosts(response.data)
-        }).then(() => document.location.reload(true))
-    }, [])
+            setNome(response.data.nome)
+            setAutor(response.data.autor)
+            setPreco(response.data.preco)
+            setCategoria_Id(response.data.categoria_id)
+        })
+    }, [id])
 
-    const nome = useRef();
-    const autor = useRef();
-    const preco = useRef();
-    const categoria_id = useRef();
+    const update = (e) => {
+        e.preventDefault()
+        axios.put(`https://livraria-api-omega.vercel.app/livros/${id}`, data).then(document.location.href="/").catch((err) => {
+            console.log(err)
+        })
+    }
 
     return(
         <div>
-            <form key={posts.id}>
-                <label>Código_ID:</label>
-                <input type="number"></input><br></br>
+            <form>
                 <label for="nome">Nome:</label>
-                <input type="text" ref={nome} defaultValue={props.livros.preco}/><br></br>
-                <label for="nome">Autor:</label>
-                <input type="text" placeholder='Nome do autor' ref={autor}></input><br></br>
-                <label>Preço:</label>
-                <input type="number" placeholder='Preço' ref={preco}></input><br></br>
-                <label>Categoria_ID:</label>
-                <input type="number" placeholder='Categoria_ID' ref={categoria_id}></input><br></br>
+                <input type="text" value={nome} onChange={(e) => setNome(e.target.value)}/><br></br>
 
-                <button type='submit'>Cadastrar</button>
+                <label for="nome">Autor:</label>
+                <input type="text" value={autor} onChange={(e) => setAutor(e.target.value)}></input><br></br>
+
+                <label>Preço:</label>
+                <input type="number" value={preco} onChange={(e) => setPreco(e.target.value)}></input><br></br>
+
+                <label>Categoria_ID:</label>
+                <input type="number" value={categoria_id} onChange={(e) => setCategoria_Id(e.target.value)}></input><br></br>
+
+                <button type='submit' onClick={update}>Atulizar</button>
             </form>
         </div>
     )
