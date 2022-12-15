@@ -11,7 +11,7 @@ function Post() {
     const categoria_id = useRef();
 
 
-    function efetuarcompra(event) {
+    function adicionar(event) {
         event.preventDefault()
         axios.post("https://livraria-api-omega.vercel.app/livros", {
             nome: nome.current.value,
@@ -23,9 +23,7 @@ function Post() {
 
     return (
         <div>
-            <form onSubmit={efetuarcompra}>
-                <label>Código_ID:</label>
-                <input type="number"></input><br></br>
+            <form onSubmit={adicionar}>
                 <label for="nome">Nome:</label>
                 <input type="text" placeholder='Nome' ref={nome} required></input><br></br>
                 <label for="nome">Autor:</label>
