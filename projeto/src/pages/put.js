@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import App from '../App';
 import { useParams } from 'react-router-dom';
+import Layout from "./Layout";
 
 function Put() {
 
@@ -32,27 +33,28 @@ function Put() {
 
     const update = (e) => {
         e.preventDefault()
-        axios.put(`https://livraria-api-omega.vercel.app/livros/${id}`, data).then(document.location.href="/").catch((err) => {
+        axios.put(`https://livraria-api-omega.vercel.app/livros/${id}`, data).then(document.location.href="/get").catch((err) => {
             console.log(err)
         })
     }
 
     return(
         <div>
+            <Layout />
             <form>
                 <label for="nome">Nome:</label>
-                <input type="text" value={nome} onChange={(e) => setNome(e.target.value)}/><br></br>
+                <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} required/><br></br>
 
                 <label for="nome">Autor:</label>
-                <input type="text" value={autor} onChange={(e) => setAutor(e.target.value)}></input><br></br>
+                <input type="text" value={autor} onChange={(e) => setAutor(e.target.value)} required></input><br></br>
 
                 <label>Preço:</label>
-                <input type="number" value={preco} onChange={(e) => setPreco(e.target.value)}></input><br></br>
+                <input type="number" value={preco} onChange={(e) => setPreco(e.target.value)} required></input><br></br>
 
                 <label>Categoria_ID:</label>
-                <input type="number" value={categoria_id} onChange={(e) => setCategoria_Id(e.target.value)}></input><br></br>
+                <input type="number" value={categoria_id} onChange={(e) => setCategoria_Id(e.target.value)} required></input><br></br>
 
-                <button type='submit' onClick={update}>Atulizar</button>
+                <button type='submit' onClick={update}>Atualizar</button>
             </form>
         </div>
     )

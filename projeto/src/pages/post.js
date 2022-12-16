@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import Layout from "./Layout";
 
 function Post() {
 
@@ -23,6 +24,7 @@ function Post() {
 
     return (
         <div>
+            <Layout />
             <form onSubmit={adicionar}>
                 <label for="nome">Nome:</label>
                 <input type="text" placeholder='Nome' ref={nome} required></input><br></br>
@@ -34,9 +36,6 @@ function Post() {
                 <input type="number" placeholder='Categoria_ID' ref={categoria_id} required></input><br></br>
 
                 <button type='submit'>Cadastrar</button>
-                <button>
-                    <Link to="/get">Voltar</Link>
-                </button>
 
             </form>
         </div>
