@@ -38,11 +38,11 @@ const Get = () => {
                                     <h2>Autor: {post.autor}</h2>
                                     <h3>R$ {post.preco}</h3>
                                 </div>
-                                <button type='submit' value={post.id} onClick={(btn) => deletar(btn)}>
+                                <button type='submit' id="btnGet" value={post.id} onClick={(btn) => deletar(btn)}>
                                     Excluir
                                 </button>
 
-                                <button>
+                                <button id="btnGet">
                                     <Link to={`/put/${post.id}`}>Editar</Link>
                                 </button>
                             </div>
